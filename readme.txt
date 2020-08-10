@@ -12,7 +12,7 @@ A companion plugin to WPLookout.com, which tracks changes and updates to the plu
 
 == Description ==
 
-This plugin is an optional way to use WP Lookout, a service that tracks changes and updates to the plugins and themes you depend on. It sends information about the plugins and themes in use on your site to your WP Lookout account, where you can receive notifications about changes and updates.
+This plugin is an optional way to use [WP Lookout](https://wplookout.com/), a service that tracks changes and updates to the plugins and themes you depend on. It sends information about the plugins and themes in use on your site to your WP Lookout account, where you can receive notifications about changes and updates.
 
 It's free to [sign up for WP Lookout](https://app.wplookout.com/register). Once your account is active, you can generate an API key that gets added to the "WP Lookout" page under your Settings menu. That's it! The plugin will take care of everything from there on out.
 
