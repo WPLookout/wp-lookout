@@ -1,6 +1,6 @@
-=== WP Lookout ===
+=== WP Lookout - Theme & Plugin Update Notifications ===
 Contributors: chrishardie
-Tags: plugins, themes, meta, admin
+Tags: notification, upgrade, admin, monitor, updates
 Requires at least: 4.5
 Tested up to: 5.5
 Requires PHP: 5.6
@@ -8,13 +8,27 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A companion plugin to WPLookout.com, which tracks changes and updates to the plugins and themes you depend on.
+WP Lookout tracks updates to the plugins and themes you depend on, sending you notifications about changes.
 
 == Description ==
 
-This plugin is an optional way to use [WP Lookout](https://wplookout.com/), a service that tracks changes and updates to the plugins and themes you depend on. It sends information about the plugins and themes in use on your site to your WP Lookout account, where you can receive notifications about changes and updates.
+This plugin is just one way to use [WP Lookout](https://wplookout.com/), a free service that tracks changes and updates to the plugins and themes you depend on and then sends you notifications. New version? Changelog update that mentions security? New plugin ownership? WP Lookout is looking out for you.
 
-It's free to [sign up for WP Lookout](https://app.wplookout.com/register). Once your account is active, you can generate an API key that gets added to the "WP Lookout" page under your Settings menu. That's it! The plugin will take care of everything from there on out.
+https://vimeo.com/453298744
+
+After installing and activating this plugin, simply input the API token generated in your [free WP Lookout account](https://app.wplookout.com/register) to quickly start tracking the plugins and themes in use on your site. There are no limits to the number of sites you can connect!
+
+Free features include:
+
+* Theme/plugin monitoring across unlimited websites
+* 24/7 tracking of changes and new releases
+* Email notifications, with optional upgrades for Slack and custom Webhook notifications
+* 2FA account security
+* Email support
+
+If WordPress auto-updates are sending you too many notifications from all of your sites, you can also use WP Lookout to stay on top of what's changing in a consolidated, easy to digest way and then filter out those other notifications.
+
+For more information about WP Lookout, [check out our website at WPLookout.com](https://wplookout.com).
 
 By enabling a connection between your site and WP Lookout, you agree to the [WP Lookout terms of service](https://wplookout.com/terms-and-conditions/).
 
