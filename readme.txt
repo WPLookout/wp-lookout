@@ -26,6 +26,8 @@ Free features include:
 * 2FA account security
 * Email support
 
+If WordPress auto-updates are sending you too many notifications from all of your sites, you can also use WP Lookout to stay on top of what's changing in a consolidated, easy to digest way and then filter out those other notifications.
+
 For more information about WP Lookout, [check out our website at WPLookout.com](https://wplookout.com).
 
 By enabling a connection between your site and WP Lookout, you agree to the [WP Lookout terms of service](https://wplookout.com/terms-and-conditions/).
