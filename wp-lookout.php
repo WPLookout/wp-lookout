@@ -20,6 +20,18 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/class-config.php';
 // Sending cron event
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-sender.php';
 
+// Add a link to the Settings page to the plugin's entry in the site's plugin list
+function wpl_filter_plugin_action_links( array $actions ) {
+	return array_merge( array(
+		'settings' => sprintf(
+			'<a href="%s">%s</a>',
+			admin_url( 'options-general.php?page=wp_lookout' ),
+			esc_html__( 'Settings', 'wp-lookout' )
+		)
+	), $actions );
+}
+add_filter( 'plugin_action_links_wp-lookout/wp-lookout.php', 'wpl_filter_plugin_action_links' );
+
 // When the plugin's settings are changed, try running the importer just once.
 add_action( 'update_option_wp_lookout_settings', function() {
 	$sender = new Wp_Lookout_Sender();
