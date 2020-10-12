@@ -38,6 +38,42 @@ add_action( 'update_option_wp_lookout_settings', function() {
 	$result = $sender->wp_lookout_send_data();
 });
 
+/**
+ * Runs only when the plugin is activated.
+ * @since 0.1.0
+ */
+function wp_lookout_activate() {
+	// Create transient to indicate admin notice should be displayed
+	set_transient( 'wpl_activate_admin_notice_display', true, 5 );
+}
+register_activation_hook( __FILE__, 'wp_lookout_activate' );
+
+/**
+ * Admin Notice on Activation.
+ * @since 0.1.0
+ */
+function wpl_activation_admin_notice() {
+
+	// Check transient, if available display notice
+	if ( get_transient( 'wpl_activate_admin_notice_display' ) && is_admin() && current_user_can( 'activate_plugins' ) ) {
+		?>
+		<div class="updated notice is-dismissible">
+			<p><?php echo __( 'WP Lookout is almost ready.', 'wp-lookout' ); ?>
+				<strong><?php
+					echo sprintf( '<a href="%s">%s</a>',
+						admin_url( 'options-general.php?page=wp_lookout' ),
+						__( 'Configure WP Lookout.', 'wp-lookout' )
+						)
+				?></strong>
+			</p>
+		</div>
+		<?php
+		// Delete transient, only display this notice once per activation.
+		delete_transient( 'wpl_activate_admin_notice_display' );
+	}
+}
+add_action( 'admin_notices', 'wpl_activation_admin_notice' );
+
 // When the plugin is deactivated, remove the API key storage and scheduled import job.
 function wp_lookout_deactivate() {
 	delete_option( 'wp_lookout_settings' );
