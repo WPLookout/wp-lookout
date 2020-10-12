@@ -50,8 +50,9 @@ No other part of your site configuration or content is transmitted or stored. Yo
 
 == Screenshots ==
 
-1. The WP Lookout plugin settings screen
-2. WP Lookout tracking activity example
+1. WP Lookout tracking activity example
+2. The WP Lookout plugin settings screen
+3. Example plugin update notification from WP Lookout
 
 == Changelog ==
 
