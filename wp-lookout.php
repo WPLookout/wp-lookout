@@ -32,11 +32,13 @@ function wpl_filter_plugin_action_links( array $actions ) {
 }
 add_filter( 'plugin_action_links_wp-lookout/wp-lookout.php', 'wpl_filter_plugin_action_links' );
 
-// When the plugin's settings are changed, try running the importer just once.
-add_action( 'update_option_wp_lookout_settings', function() {
+// When the plugin's settings are created or changed, try running the importer just once.
+function wpl_updated_option_action() {
 	$sender = new Wp_Lookout_Sender();
 	$result = $sender->wp_lookout_send_data();
-});
+}
+add_action( 'add_option_wp_lookout_settings', 'wpl_updated_option_action', 10 );
+add_action( 'update_option_wp_lookout_settings', 'wpl_updated_option_action', 10 );
 
 /**
  * Runs only when the plugin is activated.
