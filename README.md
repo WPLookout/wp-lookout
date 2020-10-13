@@ -12,13 +12,18 @@ It's free to [sign up for WP Lookout](https://app.wplookout.com/register). Once 
 
 By enabling a connection between your site and WP Lookout, you agree to the [WP Lookout terms of service](https://wplookout.com/terms-and-conditions/).
 
-### WP Lookout Settings
-
-![WP Lookout Settings](.wordpress-org/screenshot-1.png)
-
 ### WP Lookout tracking activity example
 
-![WP Lookout tracking activity example](.wordpress-org/screenshot-2.png)
+![WP Lookout tracking activity example](.wordpress-org/screenshot-1.png)
+
+### WP Lookout Settings
+
+![WP Lookout Settings](.wordpress-org/screenshot-2.png)
+
+### Example plugin update notification
+
+![Example plugin update notification](.wordpress-org/screenshot-3.png)
+
 
 ## Requirements
 

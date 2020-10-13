@@ -22,7 +22,7 @@ class Wp_Lookout_Config {
 
 		add_settings_section(
 			'wplPluginPage_config_section',
-			__( 'WP Lookout Settings', 'wp-lookout' ),
+			'',
 			array( $this, 'wpl_settings_config_section_callback' ),
 			'wplPluginPage'
 		);
@@ -57,7 +57,17 @@ class Wp_Lookout_Config {
 	}
 
 	public function wpl_settings_config_section_callback() {
-		echo esc_html_x( 'Your API key can be created in your WP Lookout account.', 'wp-lookout' );
+
+		?>
+		<div class="wplookout-settings-notices">
+			<p><?php _e( 'Welcome to WP Lookout! To get started, follow these steps:', 'wp-lookout' ); ?></p>
+			<ol>
+				<li><a href="https://app.wplookout.com/register" target="_blank"><?php _e( 'Create a free WP Lookout account.', 'wp-lookout' ); ?></a></li>
+				<li><a href="https://app.wplookout.com/settings#/api" target="_blank"><?php _e( 'Create an API token.', 'wp-lookout' ); ?></a></li>
+				<li><?php _e( 'Enter the API token in the field below and click "Save Changes."', 'wp-lookout' ); ?></li>
+			</ol>
+		</div>
+		<?php
 	}
 
 	public function wpl_options_page() {
@@ -76,20 +86,18 @@ class Wp_Lookout_Config {
 		</form>
 
 		<div class="wplookout-settings-notices">
-			<p>If you do not have a WP Lookout account yet, <a href="https://app.wplookout.com/register" target="_blank">create one for free</a>.</p></o>
-			<p>By enabling a connection between your site and WP Lookout, you agree
-				to the <a href="https://wplookout.com/terms-and-conditions/" target="_blank">WP Lookout terms of service</a>.
-				</p>
-			<p>On a regular basis this plugin will send several pieces of information to your WP Lookout account:
-			<ul>
+			<p>On a regular basis this plugin will send several pieces of information to your WP Lookout account:</p>
+			<ul style="list-style-type: disc; margin-inline-start: 20px;">
 				<li>The URL of this WordPress site</li>
 				<li>A list of the plugins installed on this site, with current version</li>
 				<li>A list of the themes installed on this site, with current version</li>
 			</ul>
-			</p>
 			<p>No other part of your site configuration or content is transmitted or stored.
 			You can disable this connection at any time by removing the API key from the field above,
 			or by disabling or deleting this plugin from your WordPress site.</p>
+			<p>By enabling a connection between your site and WP Lookout, you agree
+				to the <a href="https://wplookout.com/terms-and-conditions/" target="_blank">WP Lookout terms of service</a>.
+			</p>
 		</div>
 		<?php
 
