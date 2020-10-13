@@ -60,10 +60,10 @@ class Wp_Lookout_Config {
 
 		?>
 		<div class="wplookout-settings-notices">
-			<p><?php _e( 'Welcome to WP Lookout! To get started, follow these easy steps:', 'wp-lookout' ); ?></p>
+			<p><?php _e( 'Welcome to WP Lookout! To get started, follow these steps:', 'wp-lookout' ); ?></p>
 			<ol>
-				<li><a href="https://app.wplookout.com/register" target="_blank"><?php _e( 'Create a free WP Lookout account', 'wp-lookout' ); ?></a></li>
-				<li><a href="https://app.wplookout.com/settings#/api" target="_blank"><?php _e( 'Create an API token', 'wp-lookout' ); ?></a></li>
+				<li><a href="https://app.wplookout.com/register" target="_blank"><?php _e( 'Create a free WP Lookout account.', 'wp-lookout' ); ?></a></li>
+				<li><a href="https://app.wplookout.com/settings#/api" target="_blank"><?php _e( 'Create an API token.', 'wp-lookout' ); ?></a></li>
 				<li><?php _e( 'Enter the API token in the field below and click "Save Changes."', 'wp-lookout' ); ?></li>
 			</ol>
 		</div>
