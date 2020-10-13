@@ -4,7 +4,7 @@ Tags: notification, upgrade, admin, monitor, updates
 Requires at least: 4.5
 Tested up to: 5.5
 Requires PHP: 5.6
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,11 @@ No other part of your site configuration or content is transmitted or stored. Yo
 3. Example plugin update notification from WP Lookout
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Enhancement: make plugin settings page easier to find upon activation
+* Enhancement: run import attempt when API key is first saved
 
 = 1.0.0 =
 
