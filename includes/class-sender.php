@@ -37,6 +37,37 @@ class Wp_Lookout_Sender {
 		// Collect the site URL
 		$site_url = get_site_url();
 
+		// Plugins managed by known third-party/paid plugin sources can be excluded from the dot-org plugin import request
+		$plugins_to_exclude = array();
+
+		// Get all WooCommerce.com Extensions
+		if ( class_exists( 'WC_Helper' ) && method_exists( 'WC_Helper', 'get_local_woo_plugins' ) ) {
+
+			$woo_slug_array     = array();
+			$all_woo_extensions = WC_Helper::get_local_woo_plugins();
+
+			foreach ( $all_woo_extensions as $extension ) {
+				$woo_slug_array[] = $extension['slug'];
+			}
+
+			if ( 0 < count( $woo_slug_array ) ) {
+				// Make a string of that array for use in the API request.
+				$woo_comma_list = implode( ',', $woo_slug_array );
+
+				// Put together the woo-extension API request body
+				$woo_api_request_body = array(
+					'site_url' => $site_url,
+					'type'     => 'woo-extension',
+					'slugs'    => $woo_comma_list,
+				);
+
+				// Send the woo-extensions to the WP Lookout API
+				$woo_send_result = $this->send_api_request( $plugin_settings['wp_lookout_api_key'], $woo_api_request_body );
+
+				$plugins_to_exclude = array_merge( $plugins_to_exclude, $woo_slug_array );
+			}
+		}
+
 		// Get all plugins
 		$plugin_slug_array = array();
 		$all_plugins       = get_plugins();
@@ -45,6 +76,9 @@ class Wp_Lookout_Sender {
 		foreach ( $all_plugins as $basename => $plugin ) {
 			$plugin_slug_array[] = dirname( $basename );
 		}
+
+		// Exclude any plugins previously found in known third-party/paid plugin sources
+		$plugin_slug_array = array_diff( $plugin_slug_array, $plugins_to_exclude );
 
 		// Make a string of that array for use in the API request.
 		$plugin_comma_list = implode( ',', $plugin_slug_array );
