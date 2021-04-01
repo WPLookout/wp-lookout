@@ -34,11 +34,39 @@ class Wp_Lookout_Cli extends WP_CLI_Command {
 			return;
 		}
 
-		$wpl_options = get_option( 'wp_lookout_settings' );
+		$wpl_options                       = get_option( 'wp_lookout_settings' );
 		$wpl_options['wp_lookout_api_key'] = esc_attr( $args[0] );
 		update_option( 'wp_lookout_settings', $wpl_options );
 
-		WP_CLI::success( __( 'WP Lookout API Key was updated.' ) );
+		WP_CLI::success( __( 'WP Lookout settings updated.' ) );
+	}
+
+	/**
+	 * Hides or un-hides the WP Lookout settings page in the WordPress admin
+	 *
+	 * ## OPTIONS
+	 *
+	 * <boolean>
+	 * : true to hide the page, false to un-hide the page.
+	 *
+	 * ## EXAMPLES
+	 *
+	 *     wp wplookout hide_settings_page true
+	 *
+	 * @when after_wp_load
+	 */
+
+	public function hide_settings_page( $args, $assoc_args ) {
+		if ( empty( $args[0] ) || ! in_array( $args[0], array( 'true', 'false' ), true ) ) {
+			WP_CLI::error( __( 'No boolean specified.' ) );
+			return;
+		}
+
+		$wpl_options                       = get_option( 'wp_lookout_settings' );
+		$wpl_options['hide_settings_page'] = (bool) $args[0];
+		update_option( 'wp_lookout_settings', $wpl_options );
+
+		WP_CLI::success( __( 'WP Lookout settings updated.' ) );
 	}
 
 }
