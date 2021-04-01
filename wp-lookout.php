@@ -16,7 +16,10 @@
 define( 'WP_LOOKOUT_IMPORT_API_URL', 'https://app.wplookout.com/api/import' );
 
 // Configuration / Settings
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-config.php';
+$wpl_options = get_option( 'wp_lookout_settings' );
+if ( ! defined( 'WP_CLI' ) && ( empty( $wpl_options ) || ! $wpl_options['hide_settings_page'] ) ) {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-config.php';
+}
 // Sending cron event
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-sender.php';
 // WP CLI support
