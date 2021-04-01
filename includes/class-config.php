@@ -49,7 +49,7 @@ class Wp_Lookout_Config {
 		$options = get_option( 'wp_lookout_settings' );
 
 		printf(
-			'<input type="text" name="wp_lookout_settings[%s]" value="%s" size="40">',
+			'<input type="password" autocomplete="off" name="wp_lookout_settings[%s]" value="%s" size="40">',
 			esc_attr( $args['slug'] ),
 			! empty( $options[ $args['slug'] ] ) ? esc_attr( $options[ $args['slug'] ] ) : ''
 		);
