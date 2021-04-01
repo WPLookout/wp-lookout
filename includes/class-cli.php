@@ -30,7 +30,7 @@ class Wp_Lookout_Cli extends WP_CLI_Command {
 	 */
 	public function set_api_key( $args, $assoc_args ) {
 		if ( empty( $args[0] ) ) {
-			WP_CLI::error( __( 'No key specified.' ) );
+			WP_CLI::error( __( 'No key specified.', 'wp-lookout' ) );
 			return;
 		}
 
@@ -38,7 +38,7 @@ class Wp_Lookout_Cli extends WP_CLI_Command {
 		$wpl_options['wp_lookout_api_key'] = esc_attr( $args[0] );
 		update_option( 'wp_lookout_settings', $wpl_options );
 
-		WP_CLI::success( __( 'WP Lookout settings updated.' ) );
+		WP_CLI::success( __( 'WP Lookout settings updated.', 'wp-lookout' ) );
 	}
 
 	/**
@@ -58,15 +58,15 @@ class Wp_Lookout_Cli extends WP_CLI_Command {
 
 	public function hide_settings_page( $args, $assoc_args ) {
 		if ( empty( $args[0] ) || ! in_array( $args[0], array( 'true', 'false' ), true ) ) {
-			WP_CLI::error( __( 'No boolean specified.' ) );
+			WP_CLI::error( __( 'No boolean specified.', 'wp-lookout' ) );
 			return;
 		}
 
 		$wpl_options                       = get_option( 'wp_lookout_settings' );
-		$wpl_options['hide_settings_page'] = (bool) $args[0];
+		$wpl_options['hide_settings_page'] = rest_sanitize_boolean( $args[0] );
 		update_option( 'wp_lookout_settings', $wpl_options );
 
-		WP_CLI::success( __( 'WP Lookout settings updated.' ) );
+		WP_CLI::success( __( 'WP Lookout settings updated.', 'wp-lookout' ) );
 	}
 
 }
