@@ -19,6 +19,11 @@ define( 'WP_LOOKOUT_IMPORT_API_URL', 'https://app.wplookout.com/api/import' );
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-config.php';
 // Sending cron event
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-sender.php';
+// WP CLI support
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-cli.php';
+}
+
 
 // Add a link to the Settings page to the plugin's entry in the site's plugin list
 function wpl_filter_plugin_action_links( array $actions ) {
