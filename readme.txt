@@ -16,7 +16,7 @@ This plugin is just one way to use [WP Lookout](https://wplookout.com/), a free 
 
 https://vimeo.com/453298744
 
-After installing and activating this plugin, simply input the API token generated in your [free WP Lookout account](https://app.wplookout.com/register) to quickly start tracking the plugins and themes in use on your site. There are no limits to the number of sites you can connect!
+After installing and activating this plugin, simply input the API token generated in your [free WP Lookout account](https://app.wplookout.com/register) to quickly start tracking the plugins and themes in use on your site. (There is also a WP CLI command available to automate setting the API key.) There are no limits to the number of sites you can connect!
 
 Free features include:
 
@@ -26,7 +26,7 @@ Free features include:
 * 2FA account security
 * Email support
 
-If WordPress auto-updates are sending you too many notifications from all of your sites, you can also use WP Lookout to stay on top of what's changing in a consolidated, easy to digest way and then filter out those other notifications.
+If WordPress auto-updates are sending you too many notifications from all of your sites, you can also use WP Lookout to stay on top of what's changing in a consolidated, easy to digest way, and then filter out those other notifications.
 
 For more information about WP Lookout, [check out our website at WPLookout.com](https://wplookout.com).
 
@@ -37,6 +37,15 @@ By enabling a connection between your site and WP Lookout, you agree to the [WP 
 WP Lookout is most easily installed via the Plugins tab in your admin dashboard.
 
 == Frequently Asked Questions ==
+
+= What WP CLI commands are available? =
+
+You can customize WP Lookout's behavior with these WP CLI commands:
+
+* `wp wplookout set_api_key <key>`: Sets the WP Lookout account API key to use for updates.
+* `wp wplookout hide_settings_page <true|false>`: Hides or un-hides the WP Lookout settings page in the WordPress admin.
+
+These commands are intended for use by site managers and developers who want to automate WP Lookout setup.
 
 = What information is transmitted to WP Lookout? =
 
