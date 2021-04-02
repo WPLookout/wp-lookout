@@ -43,7 +43,14 @@ class Wp_Lookout_Sender {
 
 		// For each plugin we found, build an array
 		foreach ( $all_plugins as $basename => $plugin ) {
-			$plugin_slug_array[] = dirname( $basename );
+			$slug = dirname( $basename );
+
+			// Dirname can return '.' to indicate cwd.
+			// We don't currently support plugins installed in the top level plugin directory.
+			// In general, validate the slug as being an alphanumeric string at least 2 chars long.
+			if ( preg_match( '/^[a-zA-Z0-9-_]{2,}$/', $slug ) ) {
+				$plugin_slug_array[] = $slug;
+			}
 		}
 
 		// Make a string of that array for use in the API request.
@@ -55,7 +62,10 @@ class Wp_Lookout_Sender {
 
 		// For each theme we found, build an array
 		foreach ( $all_themes as $basename => $theme ) {
-			$theme_slug_array[] = $basename;
+			// Validate the theme dir name as being an alphanumeric string at least 2 chars long.
+			if ( preg_match( '/^[a-zA-Z0-9-_]{2,}$/', $basename ) ) {
+				$theme_slug_array[] = $basename;
+			}
 		}
 
 		// Make a string of that array for use in the API import
