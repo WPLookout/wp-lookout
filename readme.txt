@@ -4,7 +4,7 @@ Tags: notification, upgrade, admin, monitor, updates
 Requires at least: 4.5
 Tested up to: 5.7
 Requires PHP: 5.6
-Stable tag: 1.0.1
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,13 @@ No other part of your site configuration or content is transmitted or stored. Yo
 3. Example plugin update notification from WP Lookout
 
 == Changelog ==
+
+= 1.1.0 =
+
+* Enhancement: add WP CLI command to set API key via command line
+* Enhancement: add WP CLI command to hide or un-hide WP Lookout settings page in admin UI
+* Fix: hide API key from user view in API key settings field
+* Fix: better validation for theme and plugin slugs before sending to WP Lookout
 
 = 1.0.1 =
 
