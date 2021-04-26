@@ -104,6 +104,10 @@ class Wp_Lookout_Sender {
 
 		$api_key = sanitize_text_field( $api_key );
 
+		if ( WP_DEBUG && WP_DEBUG_LOG ) {
+			error_log( 'WP Lookout debug: sending theme and plugin data to ' . WP_LOOKOUT_IMPORT_API_URL );
+		}
+
 		$api_request = wp_remote_post(
 			WP_LOOKOUT_IMPORT_API_URL,
 			array(
@@ -115,6 +119,11 @@ class Wp_Lookout_Sender {
 				'body'    => $data,
 			)
 		);
+
+		if ( WP_DEBUG && WP_DEBUG_LOG && is_wp_error( $api_request ) ) {
+			$error_message = $api_request->get_error_message();
+			error_log( "WP Lookout debug: something went wrong with the API call: $error_message" );
+		}
 
 		return $api_request;
 	}
