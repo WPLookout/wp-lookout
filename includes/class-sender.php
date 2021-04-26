@@ -22,9 +22,9 @@ class Wp_Lookout_Sender {
 
 	/**
 	 * Perform the import to WP Lookout
-	 * @return false
+	 * @return bool
 	 */
-	public function wp_lookout_send_data() {
+	public function wp_lookout_send_data(): bool {
 
 		// Get the options with the API key
 		$plugin_settings = get_option( 'wp_lookout_settings' );
@@ -34,12 +34,18 @@ class Wp_Lookout_Sender {
 			return false;
 		}
 
-		// Collect the site URL
-		$site_url = get_site_url();
+		// Prep some variables for the API request
+		$api_request_body = array(
+			'version' => 2,
+		);
+		$object_data      = array();
+
+		// Collect the site URL and version
+		$api_request_body['site_url']     = get_site_url();
+		$api_request_body['core_version'] = get_bloginfo( 'version' );
 
 		// Get all plugins
-		$plugin_slug_array = array();
-		$all_plugins       = get_plugins();
+		$all_plugins = get_plugins();
 
 		// For each plugin we found, build an array
 		foreach ( $all_plugins as $basename => $plugin ) {
@@ -49,49 +55,50 @@ class Wp_Lookout_Sender {
 			// We don't currently support plugins installed in the top level plugin directory.
 			// In general, validate the slug as being an alphanumeric string at least 2 chars long.
 			if ( preg_match( '/^[a-zA-Z0-9-_]{2,}$/', $slug ) ) {
-				$plugin_slug_array[] = $slug;
+				$object_data[] = array(
+					'slug'    => $slug,
+					'type'    => 'plugin',
+					'version' => ! empty( $plugin['Version'] ) ? $plugin['Version'] : null,
+				);
 			}
 		}
 
-		// Make a string of that array for use in the API request.
-		$plugin_comma_list = implode( ',', $plugin_slug_array );
-
 		// Get all themes
-		$theme_slug_array = array();
-		$all_themes       = wp_get_themes();
+		$all_themes = wp_get_themes();
 
 		// For each theme we found, build an array
 		foreach ( $all_themes as $basename => $theme ) {
 			// Validate the theme dir name as being an alphanumeric string at least 2 chars long.
 			if ( preg_match( '/^[a-zA-Z0-9-_]{2,}$/', $basename ) ) {
-				$theme_slug_array[] = $basename;
+				$object_data[] = array(
+					'slug'    => $basename,
+					'type'    => 'theme',
+					'version' => ! empty( $theme['Version'] ) ? $theme['Version'] : null,
+				);
 			}
 		}
 
-		// Make a string of that array for use in the API import
-		$theme_comma_list = implode( ',', $theme_slug_array );
+		// Put together the API request body
+		$api_request_body['objects'] = $object_data;
 
-		// Put together the plugin API request body
-		$plugin_api_request_body = array(
-			'site_url' => $site_url,
-			'type'     => 'plugin',
-			'slugs'    => $plugin_comma_list,
-		);
+		// Send the data to the WP Lookout API
+		$api_send_result = $this->send_api_request( $plugin_settings['wp_lookout_api_key'], $api_request_body );
 
-		// Send the plugins to the WP Lookout API
-		$plugin_send_result = $this->send_api_request( $plugin_settings['wp_lookout_api_key'], $plugin_api_request_body );
+		// If there are errors and debugging / debug logging is enabled, log those errors.
+		if ( WP_DEBUG && WP_DEBUG_LOG && ( 200 !== wp_remote_retrieve_response_code( $api_send_result ) ) ) {
+			// @codingStandardsIgnoreStart
+			error_log( 'WP Lookout debug: there was a problem with the import API response.' );
+			$response_body = json_decode( wp_remote_retrieve_body( $api_send_result ), false );
+			if ( ! empty( $response_body->message ) ) {
+				error_log( 'WP Lookout debug: ' . print_r( $response_body->message, true ) );
+			}
+			if ( ! empty( $response_body->data ) ) {
+				error_log( 'WP Lookout debug: ' . print_r( $response_body->data, true ) );
+			}
+			// @codingStandardsIgnoreEnd
+		}
 
-		// Put together the theme API request body
-		$theme_api_request_body = array(
-			'site_url' => $site_url,
-			'type'     => 'theme',
-			'slugs'    => $theme_comma_list,
-		);
-
-		// Send the themes to the WP Lookout API
-		$theme_send_result = $this->send_api_request( $plugin_settings['wp_lookout_api_key'], $theme_api_request_body );
-
-		// TODO better handling of failed API requests
+		return true;
 	}
 
 	/**

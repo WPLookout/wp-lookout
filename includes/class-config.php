@@ -88,7 +88,7 @@ class Wp_Lookout_Config {
 		<div class="wplookout-settings-notices">
 			<p>On a regular basis this plugin will send several pieces of information to your WP Lookout account:</p>
 			<ul style="list-style-type: disc; margin-inline-start: 20px;">
-				<li>The URL of this WordPress site</li>
+				<li>The URL and core version for this WordPress site</li>
 				<li>A list of the plugins installed on this site, with current version</li>
 				<li>A list of the themes installed on this site, with current version</li>
 			</ul>
