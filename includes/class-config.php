@@ -18,7 +18,13 @@ class Wp_Lookout_Config {
 
 	public function wpl_settings_init() {
 
-		register_setting( 'wplPluginPage', 'wp_lookout_settings', array( $this, 'wpl_validate_api_input') );
+		register_setting(
+			'wplPluginPage',
+			'wp_lookout_settings',
+			array(
+				'sanitize_callback' => array( $this, 'wpl_sanitize_api_input' ),
+			)
+		);
 
 		add_settings_section(
 			'wplPluginPage_config_section',
@@ -39,7 +45,7 @@ class Wp_Lookout_Config {
 		);
 	}
 
-	public function wpl_validate_api_input( $input ) {
+	public function wpl_sanitize_api_input( $input ) {
 		$input['wp_lookout_api_key'] = sanitize_text_field( $input['wp_lookout_api_key'] );
 		return $input;
 	}
