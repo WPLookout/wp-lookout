@@ -13,10 +13,13 @@
  */
 
 // The API endpoint where the plugin sends plugin and theme data.
-define( 'WP_LOOKOUT_IMPORT_API_URL', 'https://app.wplookout.com/api/import' );
+const WP_LOOKOUT_API_BASE_URL = 'https://app.wplookout.com/api';
+
+// The WordPress option key for storing WP Lookout settings
+const WP_LOOKOUT_SETTINGS_OPTION = 'wp_lookout_settings';
 
 // Configuration / Settings
-$wpl_options = get_option( 'wp_lookout_settings' );
+$wpl_options = get_option( WP_LOOKOUT_SETTINGS_OPTION );
 if ( ! defined( 'WP_CLI' )
 	&& ( empty( $wpl_options['hide_settings_page'] ) || ! $wpl_options['hide_settings_page'] )
 ) {
@@ -47,8 +50,8 @@ function wpl_updated_option_action() {
 	$sender = new Wp_Lookout_Sender();
 	$result = $sender->wp_lookout_send_data();
 }
-add_action( 'add_option_wp_lookout_settings', 'wpl_updated_option_action', 10 );
-add_action( 'update_option_wp_lookout_settings', 'wpl_updated_option_action', 10 );
+add_action( 'add_option_' . WP_LOOKOUT_SETTINGS_OPTION, 'wpl_updated_option_action', 10 );
+add_action( 'update_option_' . WP_LOOKOUT_SETTINGS_OPTION, 'wpl_updated_option_action', 10 );
 
 /**
  * Runs only when the plugin is activated.
@@ -88,7 +91,7 @@ add_action( 'admin_notices', 'wpl_activation_admin_notice' );
 
 // When the plugin is deactivated, remove the API key storage and scheduled import job.
 function wp_lookout_deactivate() {
-	delete_option( 'wp_lookout_settings' );
+	delete_option( WP_LOOKOUT_SETTINGS_OPTION );
 	wp_clear_scheduled_hook( 'wp_lookout_sender_event_hook' );
 }
 register_deactivation_hook( __FILE__, 'wp_lookout_deactivate' );
