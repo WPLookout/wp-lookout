@@ -27,7 +27,7 @@ class Wp_Lookout_Sender {
 	public function wp_lookout_send_data(): bool {
 
 		// Get the options with the API key
-		$plugin_settings = get_option( 'wp_lookout_settings' );
+		$plugin_settings = get_option( WP_LOOKOUT_SETTINGS_OPTION );
 
 		// No key, nothing to do
 		if ( empty( $plugin_settings ) || empty( $plugin_settings['wp_lookout_api_key'] ) ) {
@@ -110,13 +110,14 @@ class Wp_Lookout_Sender {
 	private function send_api_request( $api_key = '', $data = array() ) {
 
 		$api_key = sanitize_text_field( $api_key );
+		$api_url = WP_LOOKOUT_API_BASE_URL . '/import';
 
 		if ( WP_DEBUG && WP_DEBUG_LOG ) {
-			error_log( 'WP Lookout debug: sending theme and plugin data to ' . WP_LOOKOUT_IMPORT_API_URL );
+			error_log( 'WP Lookout debug: sending theme and plugin data to ' . $api_url );
 		}
 
 		$api_request = wp_remote_post(
-			WP_LOOKOUT_IMPORT_API_URL,
+			$api_url,
 			array(
 				'method'  => 'POST',
 				'timeout' => '20',

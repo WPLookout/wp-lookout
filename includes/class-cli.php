@@ -34,9 +34,9 @@ class Wp_Lookout_Cli extends WP_CLI_Command {
 			return;
 		}
 
-		$wpl_options                       = get_option( 'wp_lookout_settings' );
+		$wpl_options                       = get_option( WP_LOOKOUT_SETTINGS_OPTION );
 		$wpl_options['wp_lookout_api_key'] = esc_attr( $args[0] );
-		update_option( 'wp_lookout_settings', $wpl_options );
+		update_option( WP_LOOKOUT_SETTINGS_OPTION, $wpl_options );
 
 		WP_CLI::success( __( 'WP Lookout settings updated.', 'wp-lookout' ) );
 	}
@@ -62,9 +62,9 @@ class Wp_Lookout_Cli extends WP_CLI_Command {
 			return;
 		}
 
-		$wpl_options                       = get_option( 'wp_lookout_settings' );
+		$wpl_options                       = get_option( WP_LOOKOUT_SETTINGS_OPTION );
 		$wpl_options['hide_settings_page'] = rest_sanitize_boolean( $args[0] );
-		update_option( 'wp_lookout_settings', $wpl_options );
+		update_option( WP_LOOKOUT_SETTINGS_OPTION, $wpl_options );
 
 		WP_CLI::success( __( 'WP Lookout settings updated.', 'wp-lookout' ) );
 	}

@@ -20,9 +20,9 @@ class Wp_Lookout_Config {
 
 		register_setting(
 			'wplPluginPage',
-			'wp_lookout_settings',
+			WP_LOOKOUT_SETTINGS_OPTION,
 			array(
-				'sanitize_callback' => array( $this, 'wpl_sanitize_api_input' ),
+				'sanitize_callback' => array( $this, 'wpl_validate_api_input' ),
 			)
 		);
 
@@ -35,7 +35,7 @@ class Wp_Lookout_Config {
 
 		add_settings_field(
 			'wp_lookout_api_key',
-			__( 'WP Lookout API Key', 'wp-lookout' ),
+			__( 'WP Lookout API Token', 'wp-lookout' ),
 			array( $this, 'wpl_text_field_render' ),
 			'wplPluginPage',
 			'wplPluginPage_config_section',
@@ -45,14 +45,47 @@ class Wp_Lookout_Config {
 		);
 	}
 
-	public function wpl_sanitize_api_input( $input ) {
+	/**
+	 * Sanitize and validate form input.
+	 * @param $input
+	 * @return mixed
+	 */
+	public function wpl_validate_api_input( $input ) {
+		// Make sure we're dealing with a regular text field.
 		$input['wp_lookout_api_key'] = sanitize_text_field( $input['wp_lookout_api_key'] );
+
+		// Check the API key against the WP Lookout key check endpoint, to confirm validity.
+		if ( ! empty( $input['wp_lookout_api_key'] ) ) {
+			$key_check_request = wp_remote_post(
+				WP_LOOKOUT_API_BASE_URL . '/key-check',
+				array(
+					'body' => array(
+						'token' => $input['wp_lookout_api_key'],
+					),
+				)
+			);
+
+			// If the check HTTP request couldn't complete or the API endpoint didn't return success, add error message.
+			if ( is_wp_error( $key_check_request ) || 200 !== wp_remote_retrieve_response_code( $key_check_request ) ) {
+				add_settings_error(
+					WP_LOOKOUT_SETTINGS_OPTION,
+					'wp_lookout_setting_message',
+					__( 'The WP Lookout API token could not be verified. Please check and try again.' ),
+					'error'
+				);
+
+				// Return the previously saved values.
+				return get_option( WP_LOOKOUT_SETTINGS_OPTION );
+			}
+		}
+
+		// Return the new values as validated.
 		return $input;
 	}
 
 	public function wpl_text_field_render( $args ) {
 
-		$options = get_option( 'wp_lookout_settings' );
+		$options = get_option( WP_LOOKOUT_SETTINGS_OPTION );
 
 		printf(
 			'<input type="password" autocomplete="off" name="wp_lookout_settings[%s]" value="%s" size="40">',
@@ -99,7 +132,7 @@ class Wp_Lookout_Config {
 				<li>A list of the themes installed on this site, with current version</li>
 			</ul>
 			<p>No other part of your site configuration or content is transmitted or stored.
-			You can disable this connection at any time by removing the API key from the field above,
+			You can disable this connection at any time by removing the API token from the field above,
 			or by disabling or deleting this plugin from your WordPress site.</p>
 			<p>By enabling a connection between your site and WP Lookout, you agree
 				to the <a href="https://wplookout.com/terms-and-conditions/" target="_blank">WP Lookout terms of service</a>.
