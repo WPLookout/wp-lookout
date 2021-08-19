@@ -20,10 +20,10 @@ After installing and activating this plugin, simply input the API token generate
 
 Free features include:
 
-* Theme and plugin monitoring for unlimited websites
-* 24/7 tracking of critical changes and new releases
-* Email notifications, with optional upgrades for Slack and custom Webhook notifications
-* At-a-glance dashboard overview of all your connected sites
+* [Theme and plugin monitoring](https://wplookout.com/docs/creating-trackers/) for unlimited websites
+* [24/7 tracking](https://wplookout.com/docs/tracking/) of critical changes and new releases
+* [Email notifications](https://wplookout.com/docs/notifications/), with optional upgrades for Slack and custom Webhook notifications
+* At-a-glance [dashboard overview](https://wplookout.com/docs/sites/) of all your connected sites
 * 2FA account security
 * Friendly email support
 
