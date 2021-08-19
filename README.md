@@ -33,10 +33,13 @@ For more information about WP Lookout, [check out our website at WPLookout.com](
 
 ![WP Lookout Settings](.wordpress-org/screenshot-2.png)
 
-### Example plugin update notification
+### Example plugin update email notification
 
-![Example plugin update notification](.wordpress-org/screenshot-3.png)
+![Example plugin update email notification](.wordpress-org/screenshot-3.png)
 
+### Example sites dashboard
+
+![Example sites dashboard](.wordpress-org/screenshot-4.png)
 
 ## Requirements
 

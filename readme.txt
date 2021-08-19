@@ -64,7 +64,8 @@ No other part of your site configuration or content is transmitted or stored. Yo
 
 1. WP Lookout tracking activity example
 2. The WP Lookout plugin settings screen
-3. Example plugin update notification from WP Lookout
+3. Example plugin update email notification
+4. Sites dashboard example
 
 == Changelog ==
 
