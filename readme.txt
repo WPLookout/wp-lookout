@@ -2,7 +2,7 @@
 Contributors: chrishardie
 Tags: notifications, updates, monitoring, plugin updates, theme updates, email
 Requires at least: 4.5
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 5.6
 Stable tag: 1.2.0
 License: GPLv2 or later
